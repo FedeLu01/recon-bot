@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ -d $DOMAIN ]]; then
+if [[ -z $DOMAIN ]]; then
     mkdir $DOMAIN && cd $DOMAIN && touch "$DOMAIN"_resolvedDomains.txt && touch "$DOMAIN"_webservers.txt && touch "$DOMAIN"_openports.txt 
 
     while true; do

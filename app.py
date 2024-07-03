@@ -12,14 +12,17 @@ intents.messages = True
 intents.members = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
-
-def domain_to_scan(domain):
-    os.system(f"DOMAIN={domain} && ./recon.sh")
     
 @bot.command()
-async def scan(ctx, domain):
-    await ctx.send(domain)
-    domain_to_scan(domain)
+async def scan(ctx, domain: str):
+    if not domain:
+        await ctx.send("Proporciona un dominio para escanear.")
+        return
+
+    try:
+        os.system(f"DOMAIN={domain} && ./recon.sh")
+    except Exception as e:
+        await ctx.send(e)
     
 bot.run(token)
         
