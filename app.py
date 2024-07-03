@@ -20,7 +20,7 @@ async def scan(ctx, domain: str):
         return
 
     try:
-        os.system(f"DOMAIN={domain} && ./recon.sh")
+        os.system(f"DOMAIN={domain} && bash recon.sh")
     except Exception as e:
         await ctx.send(e)
     
