@@ -20,5 +20,7 @@ def domain_to_scan(domain):
 async def scan(ctx, domain):
     await ctx.send(domain)
     domain_to_scan(domain)
+    
+bot.run(token)
         
     
