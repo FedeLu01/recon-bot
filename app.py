@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 import os
+import subprocess
 
 load_dotenv()
 
@@ -20,7 +21,7 @@ async def scan(ctx, domain: str):
         return
 
     try:
-        os.system(f"DOMAIN={domain} && bash recon.sh")
+        subprocess.run(["bash", "recon.sh", domain])
     except Exception as e:
         await ctx.send(e)
     

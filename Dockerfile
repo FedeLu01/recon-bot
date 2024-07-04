@@ -1,10 +1,7 @@
-# Use an official Python runtime as a parent image
 FROM python:3.10-alpine
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Install dependencies and tools, including Go
 RUN apk add --no-cache \
     curl \
     git \
@@ -33,8 +30,14 @@ RUN /usr/local/go/bin/go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@la
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Copy the domain-recon directory into the container
-COPY /opt/domain-recon /app/domain-recon
+# Create a file in a specific location
+RUN mkdir -p $HOME/.config/notify/ && \
+    echo "discord:
+- id: "recon"
+    discord_channel: "test"
+    discord_username: "test"
+    discord_format: "{{data}}"
+    discord_webhook_url: <DISCORD_WEBHOOK>" > $HOME/.config/notify/provider-config.yaml
 
 # Install required dependencies
 COPY requirements.txt .

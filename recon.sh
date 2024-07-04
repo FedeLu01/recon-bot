@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOMAIN=$1
+
 if [[ -z $DOMAIN ]]; then
     mkdir /opt/bounty/"$DOMAIN" && cd /opt/bounty/"$DOMAIN" && touch /opt/bounty/"$DOMAIN"/resolvedDomains.txt && touch /opt/bounty/"$DOMAIN"/webservers.txt && touch /opt/bounty/"$DOMAIN"/openports.txt 
 
@@ -11,7 +13,7 @@ if [[ -z $DOMAIN ]]; then
         sleep 3600
     done
 else
-    echo "error" | notify -silent -bulk
+    echo "error" | notify -silent
 
 fi
 
