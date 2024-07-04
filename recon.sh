@@ -7,7 +7,7 @@ if [[ -z $DOMAIN ]]; then
 
     while true; do
         echo "Recon for $DOMAIN:"
-        domain-recon -d $DOMAIN --domains-only | dnsx -silent > /opt/bounty/"$DOMAIN"/resolvedDomains.txt | anew -q /opt/bounty/"$DOMAIN"/resolvedDomains.txt
+        subfinder -d $DOMAIN -silent | dnsx -silent > /opt/bounty/"$DOMAIN"/resolvedDomains.txt | anew -q /opt/bounty/"$DOMAIN"/resolvedDomains.txt
         httpx -l /opt/bounty/"$DOMAIN"/resolvedDomains.txt -t 10 -silent > /opt/bounty/"$DOMAIN"/webservers.txt | anew /opt/bounty/"$DOMAIN"/webservers.txt | notify -silent -bulk
         smap -iL /opt/bounty/"$DOMAIN"/resolvedDomains.txt | anew /opt/bounty/"$DOMAIN"/openports.txt 
         sleep 3600

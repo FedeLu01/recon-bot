@@ -25,19 +25,15 @@ RUN /usr/local/go/bin/go install -v github.com/projectdiscovery/dnsx/cmd/dnsx@la
     /usr/local/go/bin/go install -v github.com/tomnomnom/anew@latest && \
     /usr/local/go/bin/go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest && \
     /usr/local/go/bin/go install -v github.com/projectdiscovery/notify/cmd/notify@latest && \
-    /usr/local/go/bin/go install -v github.com/s0md3v/smap/cmd/smap@latest 
+    /usr/local/go/bin/go install -v github.com/s0md3v/smap/cmd/smap@latest && \
+    /usr/local/go/bin/go install -v github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest
 
 # Copy the current directory contents into the container at /app
 COPY . /app
 
 # Create a file in a specific location
 RUN mkdir -p $HOME/.config/notify/ && \
-    echo "discord:
-- id: "recon"
-    discord_channel: "test"
-    discord_username: "test"
-    discord_format: "{{data}}"
-    discord_webhook_url: <DISCORD_WEBHOOK>" > $HOME/.config/notify/provider-config.yaml
+echo "discord:\n  - id: \"recon\"\n    discord_channel: \"test\"\n    discord_username: \"test\"\n    discord_format: \"{{data}}\"\n    discord_webhook_url: <DISCORD_WEBHOOK>" > $HOME/.config/notify/provider-config.yaml
 
 # Install required dependencies
 COPY requirements.txt .
